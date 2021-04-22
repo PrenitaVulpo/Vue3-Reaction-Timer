@@ -1,15 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h1>Reaction Timer</h1>
+  <button @click="start" :disabled="isPlaying">Start</button>
+  <!-- bind is necessary due to the fact that I'm using a variable to pass on a value -->
+  <Block v-if="isPlaying" :delay="delay"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Block from './components/Block.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Block,
+  },
+  data() {
+    return {
+      isPlaying: false,
+      delay: null,
+    }
+  },
+  methods: {
+    start() {
+      //generates a random time between 1 and 5 seconds
+      this.delay = 1000 + Math.random() * 4000
+      this.isPlaying = true
+    }
   }
 }
 </script>
@@ -20,7 +35,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #444;
   margin-top: 60px;
 }
 </style>
